@@ -1,0 +1,154 @@
+---
+title: "quokka session 2"
+output: html_notebook
+---
+
+# Examples of tidyeval and NSE that make their life easier
+
+```{r}
+# Nick's example of when NSE is useful.
+
+airquality <- tibble::as_tibble(airquality)
+
+airquality
+
+library(naniar)
+
+airquality %>% add_prop_miss()
+
+# can refer to variables without needing to use "" or data$var
+
+airquality %>% add_prop_miss(Ozone, Solar.R)
+
+# I can also (somehow, magically), take advantage of dplyr::contains and friends
+airquality %>% add_prop_miss(dplyr::contains("o"))
+
+airquality %>% add_prop_miss(dplyr::ends_with("y"))
+
+library(dplyr)
+
+airquality %>%
+  select(contains("o"))
+
+```
+
+So why `!!!` not just always `!!` ?
+
+- `!!!` (tribang) is explicitly for unquoting `...` or a list of expressions into a list of quosures.
+
+- `!!` is explicitly unquoting just one expression into a quosure
+
+- this name gets value but it's coming from a different place
+
+```{r}
+bla <- function(...)
+
+bla(1,4,g,"c")
+
+bla_y <- function(y)
+
+bla(list(1,4,g,"c"))
+  
+```
+
+# cameron's example
+
+
+```{r}
+
+predict_ex <- function(...){
+  ex_alist <- eval(substitute(alist(...)))
+  ex_list <- eval(substitute(list(...)))
+  
+  return(list(
+    alist = ex_alist,
+    list = ex_list
+  ))
+}
+str(predict_ex(airquality))
+
+
+```
+
+And now...using rlang
+
+```{r}
+ex_rlang <- function(...){
+  
+  tidy_alist <- rlang::eval_tidy(rlang::quos(...))
+  
+  base_alist <- eval(substitute(alist(...)))
+  # tidy_data <- rlang::eval_tidy(rlang::UQS(rlang::quos(...)))
+  
+  tidy_data <- rlang::UQS(rlang::quos(...))
+  
+  tidy_data_l <- lapply(rlang::quos(...), rlang::eval_tidy)
+  
+  tidy_data_p <- purrr::map(rlang::quos(...), rlang::eval_tidy)
+  
+  # tidy_data_b <- rlang::eval_bare(rlang::quos(...))
+  
+  tidy_data_b <- rlang::eval_tidy(rlang::quos(...), 
+                                  env = parent.frame())
+  
+  base_data <-  eval(substitute(list(...)))
+  
+  return(list(
+    tidy_alist = tidy_alist,
+    base_alist = base_alist,
+    tidy_data = tidy_data,
+    tidy_data_l = tidy_data_l,
+    tidy_data_p = tidy_data_p,
+    tidy_data_b = tidy_data_b,
+    base_data = base_data
+  ))
+  
+}
+
+str(ex_rlang(airquality))
+
+library(rlang)
+
+
+```
+
+
+
+
+```{r}
+# standard eval?
+plot(airquality$Ozone,
+     airquality$Solar.R)
+```
+
+```{r}
+# non-standard?
+with(airquality,
+     plot(Ozone,
+          Solar.R))
+
+# it evaluates the expression in the environment specified
+
+```
+
+```{r}
+# base NSE
+
+# transform
+# subset
+```
+
+
+# Questions we have about using NSE / tidyeval in R
+
+
+# (Jargon) Word(s) of the day
+
+
+## quote
+
+
+## unquote
+
+## quosure
+

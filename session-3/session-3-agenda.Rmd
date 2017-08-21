@@ -1,0 +1,14 @@
+---
+title: "Agenda for session 3"
+output: html_notebook
+---
+
+# Agenda
+
+1. create a pepper shaker version[^1] explaining the difference between standard evaluation and non-standard evaluation
+
+2. Branding. Quokka?
+
+[^1]: ![](https://pbs.twimg.com/media/CO2_qPVWsAAErbv.png)
+
+quokka

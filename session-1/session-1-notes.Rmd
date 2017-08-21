@@ -1,0 +1,204 @@
+---
+title: "Notes from quokka meeting 1"
+output: html_notebook
+---
+
+When and why to use non standard evaluation?
+  
+- Passing a formula into lm: 
+
+```{r}
+
+lm(Sepal.Length ~ Sepal.Width + Species, iris)
+
+```
+
+The formula means nothing without the iris dataset, so you cannot evaluate the formula on its own.
+
+It's a way of linking together
+
+data %>% ggplot(aes(var1, var2))
+
+- `lm.fit` - takes a 
+
+# things to know
+
+- Environments and scoping, when + where do things get evaluated in R?
+  - what is lazy evaluation?
+- what really is an evironment?
+
+So an environment is a collection of symbol value pairs.
+
+```{r}
+x <- 1
+y <- 3*3
+```
+
+So we have x, and y, these are our symbol and value pairs.
+
+- `x <- 1`
+- So the left hand side is a symbol, x
+- on the RHS is a value, 1
+
+`y <- 3 * 3`
+- LHS is still a symbol
+- RHS is an _expression_ - the `3*3`. This will be evaluated when you return y UNLESS, you tell R to not to evaluate `3*3`.
+
+```{r}
+y <- 3*3
+y
+```
+
+BUT how do you not evaluate `3*3`
+
+- quote
+
+```{r}
+quote(3*3)
+```
+
+```{r}
+y <- quote(3*3)
+y
+```
+
+
+You can also use `delayedAssign()`.
+
+# when are where are things evaluated?
+
+In the console, these are evaluated immediately.
+
+```{r}
+3*3
+y <- 3*3
+```
+
+```{r}
+
+my_return <- function(){
+  
+  y <- 3*3
+  y
+  
+}
+
+my_return()
+
+```
+
+```{r}
+
+my_return2 <- function(x){
+  
+  y <- 3*3
+  y
+  
+}
+
+```
+
+These things
+
+```{r}
+my_return2(x = 2*2)
+my_return2(z*z)
+my_return2(stop("dude."))
+
+
+```
+
+Surprisingly, no errors, but if we try and give x something it cannot assign, we do.
+
+```{r}
+my_return2(;)
+```
+
+This tells us something about how things are evaluated.
+It can't assign `;` to anything, so we get an error.
+
+So the things we put inside a function to give some symbol a value, have to assigned, even if they arent used.
+
+So assignment is not delayed, evaluation is.
+
+So it has to recognize thigns you type, not evaluate them.
+
+`.` is a valid name, so we get no error.
+
+```{r}
+my_return2(.)
+```
+
+# When do we care about when things are evaluated in functions?
+
+WE really care about the context that things are evaluated in.
+
+This tells us exactly where y, x1, and x2 come from.
+
+`lm(my_data$y ~ my_data$x1 + my_data$x2)`
+
+Here, `lm` is doing somethign special to recognize where they come from
+
+`lm(y ~ x1 + x2, data = my_data)`
+
+And we want want to do something  like the second option because:
+
+1. Easily reusable - you have 5 datasets with the same structure, you can run the same code.
+
+
+```{r}
+xx <- 1
+
+my_print <- function(){
+  
+  print(xx)
+  
+}
+
+my_print()
+
+```
+
+```{r}
+xx <- 1
+my_print <- function(){
+  xx <- 2
+  toy <- function(){
+    xx * 2
+  }
+  return(toy())
+}
+
+my_print()
+my_print()
+
+```
+
+So this is really nice, because it means you don't need to 
+
+- what is scoping? What is in-scope? What is out of scope?
+
+```{r}
+
+rlang::quo(group)
+
+example_quo <- function(group){
+  
+  print(rlang::quo(group))
+  
+}
+
+example_quo(bla)
+
+
+```
+
+
+# next session
+
+- bring in examples of tidyeval and NSE where it makes your life easier
+  - "programming with dplyr vignette"
+- questions we have about NSE in R
+- "Word of the day"
+  - submit words, highest wins.
+  
