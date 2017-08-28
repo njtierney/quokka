@@ -5,9 +5,135 @@ output: html_notebook
 
 # Agenda
 
+0. Examples in the wild
+
+```{r}
+library(ggplot2)
+
+ggplot(airquality,
+       aes_string(x = "Ozone")) +
+  geom_histogram()
+
+```
+
+```{r}
+quo_to_text <- function(x, var) {
+  var_enq <- enquo(var)
+  ggplot(x, aes_string(rlang::quo_text(var_enq))) + geom_density()
+}
+plt <- quo_to_text(mtcars, cyl)
+
+
+```
+
+```{r}
+# there is not a one to one match for this
+# BUT
+# 
+tibble::tribble(
+  ~base_land, ~tidyverse,       ~practical_purpose,
+  "eval",       "eval_tidy",    
+  "quote",     "quo , enquo",   
+  "substitute", "enexpr",   
+  "deparse",    "quo_text",     
+  "as.name",  "sym"             
+)
+```
+
+What's the deal with quo and enquo?
+
+- both return quosures
+- both maintain information about their environment
+- 
+
+```{r}
+library(rlang)
+library(tidyverse)
+bare_to_enquo_in_func <- function(x, var) {
+  var_enq <- enquo(var)
+  print(var_enq)
+  x %>% select(!!var_enq) %>% head(1)
+}
+
+bare_to_enquo_in_func(mtcars, mpg)
+
+bare_to_quo_in_func <- function(x, var) {
+  var_enq <- quo(var)
+  print(var_enq)
+  x %>% select(!!var_enq) %>% head(1)
+}
+bare_to_quo_in_func(mtcars, mpg)
+```
+
+So why use quo?
+
+- for debugging or to capture an expression (`quo(x > 9)`)
+
+
+```{r}
+my_filter <- function(data, expr){
+  expr <- enquo(expr)
+  # print(expr)
+  data %>% filter(!!expr)
+}
+
+my_filter(airquality, Temp > 67)
+```
+
+But you should use `enquo` inside a function.
+
+```{r}
+# microbenchmark::microbenchmark(
+#   "base_mean" = mean(airquality$Temp),
+#   "my_mean" = sum(airquality$Temp) / length(airquality$Temp)
+# )
+
+reprex::reprex({
+  library(ggplot2)
+  
+  ggplot(airquality,
+         aes(x = Temp,
+             y = Ozone)) + 
+    geom_point()
+  
+})
+```
+
+
+
+```{r}
+# substitute an expression for a value from a list
+substitute(x <- x + 1, list(x = 1))
+
+
+```
+
+```{r}
+bare_to_quo_mult <- function(x, ...) {
+  grouping <- quos(...)
+  print(grouping)
+  x %>% group_by(!!!grouping) %>% summarise(nr = n())
+}
+bare_to_quo_mult(mtcars, vs, cyl)
+
+bare_to_enquo_mult <- function(x, ...) {
+  grouping <- enquo(list(...))
+  print(grouping)
+  x %>% group_by(!!!grouping) %>% summarise(nr = n())
+}
+bare_to_enquo_mult(mtcars, vs, cyl)
+```
+
+```{r}
+
+```
+
+
 1. create a pepper shaker version[^1] explaining the difference between standard evaluation and non-standard evaluation
 
-2. Branding. Quokka?
+2. Other useful recipes?
+
+3. Branding. Quokka?
 
 [^1]: ![](https://pbs.twimg.com/media/CO2_qPVWsAAErbv.png)
 

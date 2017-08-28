@@ -174,8 +174,190 @@ $(document).ready(function () {
 <!-- rnb-text-begin -->
 <div id="agenda" class="section level1">
 <h1>Agenda</h1>
+<ol start="0" style="list-style-type: decimal">
+<li>Examples in the wild</li>
+</ol>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShnZ3Bsb3QyKVxuXG5nZ3Bsb3QoYWlycXVhbGl0eSxcbiAgICAgICBhZXNfc3RyaW5nKHggPSBcIk96b25lXCIpKSArXG4gIGdlb21faGlzdG9ncmFtKClcblxuYGBgIn0= -->
+<pre class="r"><code>library(ggplot2)
+
+ggplot(airquality,
+       aes_string(x = &quot;Ozone&quot;)) +
+  geom_histogram()
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubXlfcGFzdGUoY3lsKVxuXG5gYGAifQ== -->
+<pre class="r"><code>my_paste(cyl)
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gcGFzdGUodmFyKSA6IG9iamVjdCAnY3lsJyBub3QgZm91bmRcbiJ9 -->
+<pre><code>Error in paste(var) : object 'cyl' not found</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6MiwibnJvdyI6M30sInJkZiI6Ikg0c0lBQUFBQUFBQUExMVJRVTdETUJEYzJBa2xRUVVrUHRBSDBCeTQ4QUZld0ttM3lFa1dpQWgyaURlbDNQZzREZXZVRm1CTDlvN0dzK1BkOWVQRDdxN1lGUUFnUUtZSkNNa3dGWHdra0VMdTRnRkEzaXdDZ0d2ZTBsK2t1RmU5eDRXZGFrc2RUWVNlV2JVNHFORmlsSlM3cElxNjl0TVRGKytUMmR4dVVIUDAxRG5EaXZCQVVTVloweXRydldFZ2kxYVJLcDlHOVlheFhETVg1Q0s4WHl1TFZhOTBHd2hYeXg2WFN2K2w1NlA1S0lQRjJsbDg4VEhQOHplSFl5UmVtWUU2bzFrcTNLaXlxTWhraklpclNUdnJkdHU4VFBwMWUrOGFXYTVQYSsyeC9JUEY2VWs1ZTZ2TVc1MmhmdTUwR0h2V3F4ckRyMXh5QzBzSDVUQjJtc0xFbUxVbEdmcjl2Y2IwZ1ZsNmcrTVBpc0tRWUJnQ0FBQT0ifQ== -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["base_land"],"name":[1],"type":["chr"],"align":["left"]},{"label":["tidyverse"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"eval","2":"eval_tidy"},{"1":"substitute","2":"quo , enquo"},{"1":"deparse","2":"quo_text"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[3]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>What’s the deal with quo and enquo?</p>
+<ul>
+<li>both return quosures</li>
+<li>both maintain information about their environment</li>
+<li></li>
+</ul>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYmFyZV90b19xdW9faW5fZnVuYyhtdGNhcnMsIG1wZylcblxuYGBgIn0= -->
+<pre class="r"><code>bare_to_quo_in_func(mtcars, mpg)
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiPHF1b3N1cmU6IGZyYW1lPlxufnZhclxuIn0= -->
+<pre><code>&lt;quosure: frame&gt;
+~var</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3I6IGB2YXJgIG11c3QgcmVzb2x2ZSB0byBpbnRlZ2VyIGNvbHVtbiBwb3NpdGlvbnMsIG5vdCBhIGxpc3RcbiJ9 -->
+<pre><code>Error: `var` must resolve to integer column positions, not a list</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>So why use quo?</p>
+<ul>
+<li>for debugging or to capture an expression (<code>quo(x &gt; 9)</code>)</li>
+</ul>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6NiwibnJvdyI6MTI4fSwicmRmIjoiSDRzSUFBQUFBQUFBQTlXWFMyeFVWUmpIejVtWlRwa2lPSlJId1hhZ1FDdW83ZkFvSzQxaDFHcXRaWWEyVTJpaEJiMjBnelFPZDVycDRJT05rN2dnNnNwRVRUQnhyVHNXTGt4OGdTWXVEQmczR2pkRzQwSlh5TXFGOFFIK3Z6bi9iN2ljbElXYVFMekpyOTg1M3pubmU1MXplOCtNRDA3dGJwdHFNOGJFVER4aFRTeU9aaUtHUDlZa1RFcms4OGJFVjZPUkJDdEFIZlNBTzZTQnB4V2t3VXF3RVN3SC9XQVI5TmE1SUFxZURPVVEyQmJSZDBUYWEyVzkrQkcvUzltNWllMHpZQmZvWmo4SHRvTThDTWdCamtuaW5aRThkb0t0NEVHd0greVYzQ0syUjBFWnJBRjd3RGpZVFI4UFNDNGd4WG9VYU90aGNCb2NBbUhFVmgvb0FnK3h2NDQyT3NBbWprc05VaHlYbXI0TGh0bmZCNTRGRTVJUGVJbytoOEUwMkNFMVlLd2R0TFUrWXJlTHNjcWVaaW5YTTNhWjM4T2FiS1EvMmQ5MjJ0TnpJUDdmQUorNU9WYkFISXVjcmRUa1QvQUQyckJuY1RhczVQVUIrQTd0WlpBdlFxNENxSk45Qk1qcCt4MjhqdlkrWjhlY2g1UlljUTdOeStCTjFtbWFjODg0TzQxOGo3RjJyMkNOeFBnYnVBeEs0QngwOXdQRWIzRkdiZHJwekt1TTVaeUxRODZBVFRDUERQb2Z1bmlsRmhZdmhzVWUyN3RkWG1iTXVEUHdEWFR5anZ3RnJvSWlhNW5YL1dZTnI0R2Z3RmZnZStaendkWEF2RzNjT1pKM1lzQzQ5K2RYOEFucjBzUDFYNE1yNEZ0d0Zsd0VQNEpmd0VmZ0hmQTVlQjk4REo0RU05d0x5ZU5uMnJ0TWVZV3hMdEJHSjNWZmNNOVJuOGI3OUNsNHplMkhlWW41eTNnOTErMlN5OTB6MEhoeW15azd6OHJ6Vm03cjhjYVQ2NzBrejVlNWJaeS9rK1A5MUsranpGQ3ZkblQ5RmtyVjkzbjIxZDk5bE9wSC9lcDZqZGVmcDNIc2VjL1pWMzBQNTIxd2Z2ZitRZi90dEVkOTAyNjN0ODYzcitOcEw2OHRYcDNhdmY0YXo5L042dFhuMVZXbDZyVk9YbDVOK3hxdnYzK3EzK3pscS8zdDdHczh2dFQ4L0gzS2VIRnBYL05QZS9YMC9XcGN2dlRqOXZOVlAxcGZIZC9CK1ZvdlBkZHFiN21Ydis2RGpzZThmVktwK1dtZGs1U2FaOGJ6NzhmVjYvblJmZFg1NnNkL3ovejk5dXVvKytLUDY3cDdPZDducmFOOWMvMTc4RGg0QWp3YWtZTkV2a3Z5LzFLK3EvTHRLbkNPZnI5RUwvOUxKOEZoeWlQRy9lOFMvU2puNU9sbm1IYnlsTXFJdWY0ZEhPVjRNZUpuak8waW1hSVA0UkI5YWF6VHRLSC81eWNZMXdIR3J2cUQxR2w3aXJMSU9XTkx6SjJrdjhOa2htTUhsOGczV3JOQ3BBWWpIQnVMK0pYN3pWSGo3Z05IbWNNTWEzbUVmaWRvdjBBYm1xL1djNGdVcUJ0a1RFT2NKL3Y2R09lT1JPYm9PV2o1QnlSdk1hMjNrV1cza2RRdFJNK0IvSkNRTzRiY3MrVjNnZHpsNWM0Z2R5VzU3OHI5U240enlKM05jajd1WHMxem9UVkxlVFpXME02ZHh0MVhWOUdtM0UzWDByYmNZZVZlc3dIY1pkeTlwaXZpVS8zRi80UFA5bi9oZDlQLzNIZlViOVRuRXY1dStDSFpFZ1luUzRzMGtsVGwvdE9Wc01ST2E3RlNEcXJaY1hZVGsvUGhuTFluU2ljWGRFMitFdFpPc0JNZkRGN3dIS1dxbGVleTZreWlqOVZONDZuN0VjMldnMFdOU0pWdGMwRXR5QjZ2WXIxcFhPWnZXTkphV2FqTlYwSXNpcTFtN2FLTGJkVlRwRStGRXNsYy8reUpVK0V6L2JzR1dGenJJbXFFWjExb3pYYlMrWXhkbzYwVzJrcVd3cWZubThWcUtRZkhTbVYyVmlMbFJzYlpoZXA4V05OVW9GM00xaXExUU9lMXpWYktxbkcvVks3K0RSa2lRT3NDRUFBQSJ9 -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["Ozone"],"name":[1],"type":["int"],"align":["right"]},{"label":["Solar.R"],"name":[2],"type":["int"],"align":["right"]},{"label":["Wind"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Temp"],"name":[4],"type":["int"],"align":["right"]},{"label":["Month"],"name":[5],"type":["int"],"align":["right"]},{"label":["Day"],"name":[6],"type":["int"],"align":["right"]}],"data":[{"1":"36","2":"118","3":"8.0","4":"72","5":"5","6":"2"},{"1":"12","2":"149","3":"12.6","4":"74","5":"5","6":"3"},{"1":"NA","2":"194","3":"8.6","4":"69","5":"5","6":"10"},{"1":"7","2":"NA","3":"6.9","4":"74","5":"5","6":"11"},{"1":"16","2":"256","3":"9.7","4":"69","5":"5","6":"12"},{"1":"14","2":"274","3":"10.9","4":"68","5":"5","6":"14"},{"1":"30","2":"322","3":"11.5","4":"68","5":"5","6":"19"},{"1":"11","2":"320","3":"16.6","4":"73","5":"5","6":"22"},{"1":"45","2":"252","3":"14.9","4":"81","5":"5","6":"29"},{"1":"115","2":"223","3":"5.7","4":"79","5":"5","6":"30"},{"1":"37","2":"279","3":"7.4","4":"76","5":"5","6":"31"},{"1":"NA","2":"286","3":"8.6","4":"78","5":"6","6":"1"},{"1":"NA","2":"287","3":"9.7","4":"74","5":"6","6":"2"},{"1":"NA","2":"186","3":"9.2","4":"84","5":"6","6":"4"},{"1":"NA","2":"220","3":"8.6","4":"85","5":"6","6":"5"},{"1":"NA","2":"264","3":"14.3","4":"79","5":"6","6":"6"},{"1":"29","2":"127","3":"9.7","4":"82","5":"6","6":"7"},{"1":"NA","2":"273","3":"6.9","4":"87","5":"6","6":"8"},{"1":"71","2":"291","3":"13.8","4":"90","5":"6","6":"9"},{"1":"39","2":"323","3":"11.5","4":"87","5":"6","6":"10"},{"1":"NA","2":"259","3":"10.9","4":"93","5":"6","6":"11"},{"1":"NA","2":"250","3":"9.2","4":"92","5":"6","6":"12"},{"1":"23","2":"148","3":"8.0","4":"82","5":"6","6":"13"},{"1":"NA","2":"332","3":"13.8","4":"80","5":"6","6":"14"},{"1":"NA","2":"322","3":"11.5","4":"79","5":"6","6":"15"},{"1":"21","2":"191","3":"14.9","4":"77","5":"6","6":"16"},{"1":"37","2":"284","3":"20.7","4":"72","5":"6","6":"17"},{"1":"12","2":"120","3":"11.5","4":"73","5":"6","6":"19"},{"1":"13","2":"137","3":"10.3","4":"76","5":"6","6":"20"},{"1":"NA","2":"150","3":"6.3","4":"77","5":"6","6":"21"},{"1":"NA","2":"59","3":"1.7","4":"76","5":"6","6":"22"},{"1":"NA","2":"91","3":"4.6","4":"76","5":"6","6":"23"},{"1":"NA","2":"250","3":"6.3","4":"76","5":"6","6":"24"},{"1":"NA","2":"135","3":"8.0","4":"75","5":"6","6":"25"},{"1":"NA","2":"127","3":"8.0","4":"78","5":"6","6":"26"},{"1":"NA","2":"47","3":"10.3","4":"73","5":"6","6":"27"},{"1":"NA","2":"98","3":"11.5","4":"80","5":"6","6":"28"},{"1":"NA","2":"31","3":"14.9","4":"77","5":"6","6":"29"},{"1":"NA","2":"138","3":"8.0","4":"83","5":"6","6":"30"},{"1":"135","2":"269","3":"4.1","4":"84","5":"7","6":"1"},{"1":"49","2":"248","3":"9.2","4":"85","5":"7","6":"2"},{"1":"32","2":"236","3":"9.2","4":"81","5":"7","6":"3"},{"1":"NA","2":"101","3":"10.9","4":"84","5":"7","6":"4"},{"1":"64","2":"175","3":"4.6","4":"83","5":"7","6":"5"},{"1":"40","2":"314","3":"10.9","4":"83","5":"7","6":"6"},{"1":"77","2":"276","3":"5.1","4":"88","5":"7","6":"7"},{"1":"97","2":"267","3":"6.3","4":"92","5":"7","6":"8"},{"1":"97","2":"272","3":"5.7","4":"92","5":"7","6":"9"},{"1":"85","2":"175","3":"7.4","4":"89","5":"7","6":"10"},{"1":"NA","2":"139","3":"8.6","4":"82","5":"7","6":"11"},{"1":"10","2":"264","3":"14.3","4":"73","5":"7","6":"12"},{"1":"27","2":"175","3":"14.9","4":"81","5":"7","6":"13"},{"1":"NA","2":"291","3":"14.9","4":"91","5":"7","6":"14"},{"1":"7","2":"48","3":"14.3","4":"80","5":"7","6":"15"},{"1":"48","2":"260","3":"6.9","4":"81","5":"7","6":"16"},{"1":"35","2":"274","3":"10.3","4":"82","5":"7","6":"17"},{"1":"61","2":"285","3":"6.3","4":"84","5":"7","6":"18"},{"1":"79","2":"187","3":"5.1","4":"87","5":"7","6":"19"},{"1":"63","2":"220","3":"11.5","4":"85","5":"7","6":"20"},{"1":"16","2":"7","3":"6.9","4":"74","5":"7","6":"21"},{"1":"NA","2":"258","3":"9.7","4":"81","5":"7","6":"22"},{"1":"NA","2":"295","3":"11.5","4":"82","5":"7","6":"23"},{"1":"80","2":"294","3":"8.6","4":"86","5":"7","6":"24"},{"1":"108","2":"223","3":"8.0","4":"85","5":"7","6":"25"},{"1":"20","2":"81","3":"8.6","4":"82","5":"7","6":"26"},{"1":"52","2":"82","3":"12.0","4":"86","5":"7","6":"27"},{"1":"82","2":"213","3":"7.4","4":"88","5":"7","6":"28"},{"1":"50","2":"275","3":"7.4","4":"86","5":"7","6":"29"},{"1":"64","2":"253","3":"7.4","4":"83","5":"7","6":"30"},{"1":"59","2":"254","3":"9.2","4":"81","5":"7","6":"31"},{"1":"39","2":"83","3":"6.9","4":"81","5":"8","6":"1"},{"1":"9","2":"24","3":"13.8","4":"81","5":"8","6":"2"},{"1":"16","2":"77","3":"7.4","4":"82","5":"8","6":"3"},{"1":"78","2":"NA","3":"6.9","4":"86","5":"8","6":"4"},{"1":"35","2":"NA","3":"7.4","4":"85","5":"8","6":"5"},{"1":"66","2":"NA","3":"4.6","4":"87","5":"8","6":"6"},{"1":"122","2":"255","3":"4.0","4":"89","5":"8","6":"7"},{"1":"89","2":"229","3":"10.3","4":"90","5":"8","6":"8"},{"1":"110","2":"207","3":"8.0","4":"90","5":"8","6":"9"},{"1":"NA","2":"222","3":"8.6","4":"92","5":"8","6":"10"},{"1":"NA","2":"137","3":"11.5","4":"86","5":"8","6":"11"},{"1":"44","2":"192","3":"11.5","4":"86","5":"8","6":"12"},{"1":"28","2":"273","3":"11.5","4":"82","5":"8","6":"13"},{"1":"65","2":"157","3":"9.7","4":"80","5":"8","6":"14"},{"1":"NA","2":"64","3":"11.5","4":"79","5":"8","6":"15"},{"1":"22","2":"71","3":"10.3","4":"77","5":"8","6":"16"},{"1":"59","2":"51","3":"6.3","4":"79","5":"8","6":"17"},{"1":"23","2":"115","3":"7.4","4":"76","5":"8","6":"18"},{"1":"31","2":"244","3":"10.9","4":"78","5":"8","6":"19"},{"1":"44","2":"190","3":"10.3","4":"78","5":"8","6":"20"},{"1":"21","2":"259","3":"15.5","4":"77","5":"8","6":"21"},{"1":"9","2":"36","3":"14.3","4":"72","5":"8","6":"22"},{"1":"NA","2":"255","3":"12.6","4":"75","5":"8","6":"23"},{"1":"45","2":"212","3":"9.7","4":"79","5":"8","6":"24"},{"1":"168","2":"238","3":"3.4","4":"81","5":"8","6":"25"},{"1":"73","2":"215","3":"8.0","4":"86","5":"8","6":"26"},{"1":"NA","2":"153","3":"5.7","4":"88","5":"8","6":"27"},{"1":"76","2":"203","3":"9.7","4":"97","5":"8","6":"28"},{"1":"118","2":"225","3":"2.3","4":"94","5":"8","6":"29"},{"1":"84","2":"237","3":"6.3","4":"96","5":"8","6":"30"},{"1":"85","2":"188","3":"6.3","4":"94","5":"8","6":"31"},{"1":"96","2":"167","3":"6.9","4":"91","5":"9","6":"1"},{"1":"78","2":"197","3":"5.1","4":"92","5":"9","6":"2"},{"1":"73","2":"183","3":"2.8","4":"93","5":"9","6":"3"},{"1":"91","2":"189","3":"4.6","4":"93","5":"9","6":"4"},{"1":"47","2":"95","3":"7.4","4":"87","5":"9","6":"5"},{"1":"32","2":"92","3":"15.5","4":"84","5":"9","6":"6"},{"1":"20","2":"252","3":"10.9","4":"80","5":"9","6":"7"},{"1":"23","2":"220","3":"10.3","4":"78","5":"9","6":"8"},{"1":"21","2":"230","3":"10.9","4":"75","5":"9","6":"9"},{"1":"24","2":"259","3":"9.7","4":"73","5":"9","6":"10"},{"1":"44","2":"236","3":"14.9","4":"81","5":"9","6":"11"},{"1":"21","2":"259","3":"15.5","4":"76","5":"9","6":"12"},{"1":"28","2":"238","3":"6.3","4":"77","5":"9","6":"13"},{"1":"9","2":"24","3":"10.9","4":"71","5":"9","6":"14"},{"1":"13","2":"112","3":"11.5","4":"71","5":"9","6":"15"},{"1":"46","2":"237","3":"6.9","4":"78","5":"9","6":"16"},{"1":"13","2":"27","3":"10.3","4":"76","5":"9","6":"18"},{"1":"24","2":"238","3":"10.3","4":"68","5":"9","6":"19"},{"1":"16","2":"201","3":"8.0","4":"82","5":"9","6":"20"},{"1":"23","2":"14","3":"9.2","4":"71","5":"9","6":"22"},{"1":"36","2":"139","3":"10.3","4":"81","5":"9","6":"23"},{"1":"7","2":"49","3":"10.3","4":"69","5":"9","6":"24"},{"1":"30","2":"193","3":"6.9","4":"70","5":"9","6":"26"},{"1":"NA","2":"145","3":"13.2","4":"77","5":"9","6":"27"},{"1":"14","2":"191","3":"14.3","4":"75","5":"9","6":"28"},{"1":"18","2":"131","3":"8.0","4":"76","5":"9","6":"29"},{"1":"20","2":"223","3":"11.5","4":"68","5":"9","6":"30"}],"options":{"columns":{"min":{},"max":[10],"total":[6]},"rows":{"min":[10],"max":[10],"total":[128]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>But you should use <code>enquo</code> inside a function.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucmVwcmV4OjpyZXByZXgoe1xuICBsaWJyYXJ5KGdncGxvdDIpXG4gIFxuICBnZ3Bsb3QoYWlycXVhbGl0eSxcbiAgICAgICAgIGFlcyh4ID0gVGVtcCxcbiAgICAgICAgICAgICB5ID0gT3pvbmUpKSArIFxuICAgIGdlb21fcG9pbnQoKVxuICBcbn0pXG5cbmBgYCJ9 -->
+<pre class="r"><code>reprex::reprex({
+  library(ggplot2)
+  
+  ggplot(airquality,
+         aes(x = Temp,
+             y = Ozone)) + 
+    geom_point()
+  
+})
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiUmVuZGVyaW5nIHJlcHJleC4uLlxuIn0= -->
+<pre><code>Rendering reprex...</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG4tXG5cbnxcblxuLVxuXG58XG5cbi1cblxufFxuXG4tXG5cbnxcblxuLVxuXG58XG5cbi1cblxufFxuXG4tXG5cbnxcblxuLVxuXG58XG5cbi1cblxufFxuXG4tXG5cbnxcblxuLVxuXG58XG5cbi1cblxufFxuXG4tXG5cbnxcblxuLVxuXG4gXG4ifQ== -->
+<pre><code>
+-
+
+|
+
+-
+
+|
+
+-
+
+|
+
+-
+
+|
+
+-
+
+|
+
+-
+
+|
+
+-
+
+|
+
+-
+
+|
+
+-
+
+|
+
+-
+
+|
+
+-
+
+|
+
+-
+
+|
+
+-
+
+|
+
+-
+
+ </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiUmVuZGVyZWQgcmVwcmV4IGlzIG9uIHRoZSBjbGlwYm9hcmQuXG4ifQ== -->
+<pre><code>Rendered reprex is on the clipboard.</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBzdWJzdGl0dXRlIGFuIGV4cHJlc3Npb24gZm9yIGEgdmFsdWUgZnJvbSBhIGxpc3RcbnN1YnN0aXR1dGUoeCA8LSB4ICsgMSwgbGlzdCh4ID0gMSkpXG5cbmBgYCJ9 -->
+<pre class="r"><code># substitute an expression for a value from a list
+substitute(x &lt;- x + 1, list(x = 1))
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiMSA8LSAxICsgMVxuIn0= -->
+<pre><code>1 &lt;- 1 + 1</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYmFyZV90b19lbnF1b19tdWx0KG10Y2FycywgdnMsIGN5bClcblxuYGBgIn0= -->
+<pre class="r"><code>bare_to_enquo_mult(mtcars, vs, cyl)
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gKGZ1bmN0aW9uICh4LCBzdHJpY3QgPSBUUlVFKSAgOiBcInhcIiBtdXN0IGJlIGFuIGFyZ3VtZW50IG5hbWVcbiJ9 -->
+<pre><code>Error in (function (x, strict = TRUE)  : &quot;x&quot; must be an argument name</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
 <ol style="list-style-type: decimal">
 <li><p>create a pepper shaker version<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> explaining the difference between standard evaluation and non-standard evaluation</p></li>
+<li><p>Other useful recipes?</p></li>
 <li><p>Branding. Quokka?</p></li>
 </ol>
 <p>quokka</p>
@@ -188,7 +370,7 @@ $(document).ready(function () {
 </ol>
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiQWdlbmRhIGZvciBzZXNzaW9uIDMiCm91dHB1dDogaHRtbF9ub3RlYm9vawotLS0KCiMgQWdlbmRhCgoxLiBjcmVhdGUgYSBwZXBwZXIgc2hha2VyIHZlcnNpb25bXjFdIGV4cGxhaW5pbmcgdGhlIGRpZmZlcmVuY2UgYmV0d2VlbiBzdGFuZGFyZCBldmFsdWF0aW9uIGFuZCBub24tc3RhbmRhcmQgZXZhbHVhdGlvbgoKMi4gQnJhbmRpbmcuIFF1b2trYT8KClteMV06ICFbXShodHRwczovL3Bicy50d2ltZy5jb20vbWVkaWEvQ08yX3FQVldzQUFFcmJ2LnBuZykKCnF1b2trYQo=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiQWdlbmRhIGZvciBzZXNzaW9uIDMiCm91dHB1dDogaHRtbF9ub3RlYm9vawotLS0KCiMgQWdlbmRhCgowLiBFeGFtcGxlcyBpbiB0aGUgd2lsZAoKYGBge3J9CmxpYnJhcnkoZ2dwbG90MikKCmdncGxvdChhaXJxdWFsaXR5LAogICAgICAgYWVzX3N0cmluZyh4ID0gIk96b25lIikpICsKICBnZW9tX2hpc3RvZ3JhbSgpCgpgYGAKCmBgYHtyfQpxdW9fdG9fdGV4dCA8LSBmdW5jdGlvbih4LCB2YXIpIHsKICB2YXJfZW5xIDwtIGVucXVvKHZhcikKICBnZ3Bsb3QoeCwgYWVzX3N0cmluZyhybGFuZzo6cXVvX3RleHQodmFyX2VucSkpKSArIGdlb21fZGVuc2l0eSgpCn0KcGx0IDwtIHF1b190b190ZXh0KG10Y2FycywgY3lsKQoKCmBgYAoKYGBge3J9CiMgdGhlcmUgaXMgbm90IGEgb25lIHRvIG9uZSBtYXRjaCBmb3IgdGhpcwojIEJVVAojIAp0aWJibGU6OnRyaWJibGUoCiAgfmJhc2VfbGFuZCwgfnRpZHl2ZXJzZSwgICAgICAgfnByYWN0aWNhbF9wdXJwb3NlLAogICJldmFsIiwgICAgICAgImV2YWxfdGlkeSIsICAgIAogICJxdW90ZSIsICAgICAicXVvICwgZW5xdW8iLCAgIAogICJzdWJzdGl0dXRlIiwgImVuZXhwciIsICAgCiAgImRlcGFyc2UiLCAgICAicXVvX3RleHQiLCAgICAgCiAgImFzLm5hbWUiLCAgInN5bSIgICAgICAgICAgICAgCikKYGBgCgpXaGF0J3MgdGhlIGRlYWwgd2l0aCBxdW8gYW5kIGVucXVvPwoKLSBib3RoIHJldHVybiBxdW9zdXJlcwotIGJvdGggbWFpbnRhaW4gaW5mb3JtYXRpb24gYWJvdXQgdGhlaXIgZW52aXJvbm1lbnQKLSAKCmBgYHtyfQpsaWJyYXJ5KHJsYW5nKQpsaWJyYXJ5KHRpZHl2ZXJzZSkKYmFyZV90b19lbnF1b19pbl9mdW5jIDwtIGZ1bmN0aW9uKHgsIHZhcikgewogIHZhcl9lbnEgPC0gZW5xdW8odmFyKQogIHByaW50KHZhcl9lbnEpCiAgeCAlPiUgc2VsZWN0KCEhdmFyX2VucSkgJT4lIGhlYWQoMSkKfQoKYmFyZV90b19lbnF1b19pbl9mdW5jKG10Y2FycywgbXBnKQoKYmFyZV90b19xdW9faW5fZnVuYyA8LSBmdW5jdGlvbih4LCB2YXIpIHsKICB2YXJfZW5xIDwtIHF1byh2YXIpCiAgcHJpbnQodmFyX2VucSkKICB4ICU+JSBzZWxlY3QoISF2YXJfZW5xKSAlPiUgaGVhZCgxKQp9CmJhcmVfdG9fcXVvX2luX2Z1bmMobXRjYXJzLCBtcGcpCmBgYAoKU28gd2h5IHVzZSBxdW8/CgotIGZvciBkZWJ1Z2dpbmcgb3IgdG8gY2FwdHVyZSBhbiBleHByZXNzaW9uIChgcXVvKHggPiA5KWApCgoKYGBge3J9Cm15X2ZpbHRlciA8LSBmdW5jdGlvbihkYXRhLCBleHByKXsKICBleHByIDwtIGVucXVvKGV4cHIpCiAgIyBwcmludChleHByKQogIGRhdGEgJT4lIGZpbHRlcighIWV4cHIpCn0KCm15X2ZpbHRlcihhaXJxdWFsaXR5LCBUZW1wID4gNjcpCmBgYAoKQnV0IHlvdSBzaG91bGQgdXNlIGBlbnF1b2AgaW5zaWRlIGEgZnVuY3Rpb24uCgpgYGB7cn0KIyBtaWNyb2JlbmNobWFyazo6bWljcm9iZW5jaG1hcmsoCiMgICAiYmFzZV9tZWFuIiA9IG1lYW4oYWlycXVhbGl0eSRUZW1wKSwKIyAgICJteV9tZWFuIiA9IHN1bShhaXJxdWFsaXR5JFRlbXApIC8gbGVuZ3RoKGFpcnF1YWxpdHkkVGVtcCkKIyApCgpyZXByZXg6OnJlcHJleCh7CiAgbGlicmFyeShnZ3Bsb3QyKQogIAogIGdncGxvdChhaXJxdWFsaXR5LAogICAgICAgICBhZXMoeCA9IFRlbXAsCiAgICAgICAgICAgICB5ID0gT3pvbmUpKSArIAogICAgZ2VvbV9wb2ludCgpCiAgCn0pCmBgYAoKCgpgYGB7cn0KIyBzdWJzdGl0dXRlIGFuIGV4cHJlc3Npb24gZm9yIGEgdmFsdWUgZnJvbSBhIGxpc3QKc3Vic3RpdHV0ZSh4IDwtIHggKyAxLCBsaXN0KHggPSAxKSkKCgpgYGAKCmBgYHtyfQpiYXJlX3RvX3F1b19tdWx0IDwtIGZ1bmN0aW9uKHgsIC4uLikgewogIGdyb3VwaW5nIDwtIHF1b3MoLi4uKQogIHByaW50KGdyb3VwaW5nKQogIHggJT4lIGdyb3VwX2J5KCEhIWdyb3VwaW5nKSAlPiUgc3VtbWFyaXNlKG5yID0gbigpKQp9CmJhcmVfdG9fcXVvX211bHQobXRjYXJzLCB2cywgY3lsKQoKYmFyZV90b19lbnF1b19tdWx0IDwtIGZ1bmN0aW9uKHgsIC4uLikgewogIGdyb3VwaW5nIDwtIGVucXVvKGxpc3QoLi4uKSkKICBwcmludChncm91cGluZykKICB4ICU+JSBncm91cF9ieSghISFncm91cGluZykgJT4lIHN1bW1hcmlzZShuciA9IG4oKSkKfQpiYXJlX3RvX2VucXVvX211bHQobXRjYXJzLCB2cywgY3lsKQpgYGAKCmBgYHtyfQoKYGBgCgoKMS4gY3JlYXRlIGEgcGVwcGVyIHNoYWtlciB2ZXJzaW9uW14xXSBleHBsYWluaW5nIHRoZSBkaWZmZXJlbmNlIGJldHdlZW4gc3RhbmRhcmQgZXZhbHVhdGlvbiBhbmQgbm9uLXN0YW5kYXJkIGV2YWx1YXRpb24KCjIuIE90aGVyIHVzZWZ1bCByZWNpcGVzPwoKMy4gQnJhbmRpbmcuIFF1b2trYT8KClteMV06ICFbXShodHRwczovL3Bicy50d2ltZy5jb20vbWVkaWEvQ08yX3FQVldzQUFFcmJ2LnBuZykKCnF1b2trYQo=</div>
 
 
 

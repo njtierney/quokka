@@ -86,7 +86,7 @@ ex_rlang <- function(...){
   
   tidy_data_p <- purrr::map(rlang::quos(...), rlang::eval_tidy)
   
-  # tidy_data_b <- rlang::eval_bare(rlang::quos(...))
+  tidy_data_bare <- rlang::eval_bare(rlang::quos(...))
   
   tidy_data_b <- rlang::eval_tidy(rlang::quos(...), 
                                   env = parent.frame())
@@ -99,6 +99,7 @@ ex_rlang <- function(...){
     tidy_data = tidy_data,
     tidy_data_l = tidy_data_l,
     tidy_data_p = tidy_data_p,
+    tidy_data_bare = tidy_data_bare,
     tidy_data_b = tidy_data_b,
     base_data = base_data
   ))

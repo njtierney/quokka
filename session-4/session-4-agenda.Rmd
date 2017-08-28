@@ -1,0 +1,29 @@
+---
+title: "Session 4"
+date: "2017-09-18, Monday, 3pm"
+output: html_document
+---
+
+Potential outline for the coming weeks. The next quokka meeting is on the 21st September 
+
+1. Rstats News: "Any news in R that's interesting?"
+
+- Bring some "R show and tell" (a blog post, or a news site using R)
+  - For example,    
+- "surprisingly useful #rstats twitter information"
+  - For example: 
+    - Hadley https://twitter.com/hadleywickham/status/901464546996518912
+- Any R packages we've released
+
+2. Oh God, Help.
+
+  - Ideally reproducible code that you need help with
+  - But it can also be a little more of "Hey, what's this, I don't immediately know how to solve this"
+
+3. Reading group: Metaprogramming section of Advanced R
+
+- http://adv-r.hadley.nz/nse.html#capturing-expressions
+- Chapter 17.1 discussion:
+  - Read through 17.1 and do exercises.
+  - Discuss answers and thoughts
+  - Discuss future paths (how much and how long to read?)
