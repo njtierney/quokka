@@ -23,7 +23,7 @@ Potential outline for the coming weeks. The next quokka meeting is on the 18th S
   - [rOpenSci post about their onboarding process](https://ropensci.org/blog/blog/2017/09/11/software-review-update)
   - [rOpenSci Spelling check package](https://ropensci.org/blog/technotes/2017/09/07/spelling-release)
   - [rOpenSci code review](https://ropensci.org/blog/blog/2017/09/01/nf-softwarereview)
-  - 
+  - [Alternative Representations for R Objects](https://svn.r-project.org/R/branches/ALTREP/ALTREP.html)
 
 - Any R packages we've released?
 
