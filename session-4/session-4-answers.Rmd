@@ -1,0 +1,89 @@
+---
+title: "Session-4-answers"
+output: html_document
+---
+
+Non-standard evaluation: Capturing expressions 
+
+**Question 1**
+
+One important feature of deparse() to be aware of when programming is that it can return multiple strings if the input is too long. For example, the following call produces a vector of length two:
+
+```{r question-1}
+
+f <- function(x) substitute(x)
+
+g <- function(x) deparse(substitute(x))
+
+f(a + b + c + d + e + f + g + h + i + j + k + l + m +
+  n + o + p + q + r + s + t + u + v + w + x + y + z)
+
+g(a + b + c + d + e + f + g + h + i + j + k + l + m +
+  n + o + p + q + r + s + t + u + v + w + x + y + z)
+
+```
+
+Why does this happen? Carefully read the documentation for ?deparse. Can you write a wrapper around deparse() so that it always returns a single string?
+
+I couldn't set `width.cutoff` to Inf, so I just set it to a largish number.
+
+```{r q1-ans}
+
+h <- function(x) deparse(substitute(x), width.cutoff = 500L)
+
+h(a + b + c + d + e + f + g + h + i + j + k + l + m +
+  n + o + p + q + r + s + t + u + v + w + x + y + z)
+
+```
+
+# Q2
+
+Why does `as.Date.default()` use `substitute()` and `deparse()`? Why does `pairwise.t.test()` use them? Read the source code.
+
+- `as.Date.default()` uses the `deparse(substitute())` combo so that it can exactly capture the input as a string to put into an error message.
+
+- `pairwise.t.test()` uses them to describe the data input
+
+```{r}
+
+attach(airquality)
+airquality$Month <- factor(airquality$Month, labels = month.abb[5:9])
+pw_test <- pairwise.t.test(airquality$Ozone, airquality$Month)
+detach()
+
+pw_test$data.name
+pw_test
+```
+
+# Q3
+
+`pairwise.t.test()` assumes that `deparse()` always returns a length one character vector. Can you construct an input that violates this expectation? What happens?
+
+I'm not sure - here is what I tried:
+
+```{r}
+
+airquality$`Month of the year in the english language and entered in today on the 2017-09-18` <- factor(airquality$Month, labels = month.abb[5:9])
+pw_test <- pairwise.t.test(airquality$Ozone, airquality$`Month of the year in the english language and entered in today on the 2017-09-18`)
+
+pw_test
+```
+
+# Q4
+
+`f()`, defined above, just calls substitute(). Why can’t we use it to define g()? In other words, what will the following code return? First make a prediction. Then run the code and think about the results.
+
+```{r}
+
+f <- function(x) substitute(x)
+g <- function(x) deparse(f(x))
+
+g(1:10)
+g(x)
+g(x + y ^ 2 / z + exp(a * sin(b)))
+
+```
+
+Because it takes the result of `f(x)` and turns it into a character vector, which at this level, is just `x`!
+
+
