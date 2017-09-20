@@ -25,7 +25,7 @@ g(a + b + c + d + e + f + g + h + i + j + k + l + m +
 
 Why does this happen? Carefully read the documentation for ?deparse. Can you write a wrapper around deparse() so that it always returns a single string?
 
-I couldn't set `width.cutoff` to Inf, so I just set it to a largish number.
+I couldn't set `width.cutoff` to Inf, so I just set it to 500, which is the largest number.
 
 ```{r q1-ans}
 
@@ -42,14 +42,18 @@ Why does `as.Date.default()` use `substitute()` and `deparse()`? Why does `pairw
 
 - `as.Date.default()` uses the `deparse(substitute())` combo so that it can exactly capture the input as a string to put into an error message.
 
+```{r}
+as.Date.default("m")
+```
+
+- `gettextf` translates an error message into the system language - iff there is a translated error message available. otherwise identical to `sprintf`.
+
 - `pairwise.t.test()` uses them to describe the data input
 
 ```{r}
 
-attach(airquality)
 airquality$Month <- factor(airquality$Month, labels = month.abb[5:9])
 pw_test <- pairwise.t.test(airquality$Ozone, airquality$Month)
-detach()
 
 pw_test$data.name
 pw_test
@@ -64,7 +68,8 @@ I'm not sure - here is what I tried:
 ```{r}
 
 airquality$`Month of the year in the english language and entered in today on the 2017-09-18` <- factor(airquality$Month, labels = month.abb[5:9])
-pw_test <- pairwise.t.test(airquality$Ozone, airquality$`Month of the year in the english language and entered in today on the 2017-09-18`)
+pw_test <- pairwise.t.test(airquality$Ozone + airquality$Ozone, 
+                           airquality$`Month of the year in the english language and entered in today on the 2017-09-18`)
 
 pw_test
 ```
@@ -86,4 +91,6 @@ g(x + y ^ 2 / z + exp(a * sin(b)))
 
 Because it takes the result of `f(x)` and turns it into a character vector, which at this level, is just `x`!
 
+Why use `deparse` by itself?
 
+to print a formula call as a string, e.g., `y ~ x`.

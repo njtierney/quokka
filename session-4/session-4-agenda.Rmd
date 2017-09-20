@@ -23,13 +23,22 @@ Potential outline for the coming weeks. The next quokka meeting is on the 18th S
   - [rOpenSci post about their onboarding process](https://ropensci.org/blog/blog/2017/09/11/software-review-update)
   - [rOpenSci Spelling check package](https://ropensci.org/blog/technotes/2017/09/07/spelling-release)
   - [rOpenSci code review](https://ropensci.org/blog/blog/2017/09/01/nf-softwarereview)
-  - 
+  - Keras R package
+  - Tensorflow R package
+  - [Markdrive pkg](https://github.com/milesmcbain/markdrive) + fetch script for new data from google drive = awesome.
 
+- R source
+  - Changing the C-level representations of objects in R source. E.g., Vectors being marked as sorted, or as a sequence. Big potential for good speedups
+  - [Alternative Representations for R Objects](https://svn.r-project.org/R/branches/ALTREP/ALTREP.html)
+  
 - Any R packages we've released?
+  - Roger's `queue` package for queueing abstract data types, to facilitate running certain processes at certain times - powered by the thor package. Parallel processing in the future.
+  
+- visdat accepted into JOSS
 
 2. Oh God, Help.
 
-?
+ - no-one reported help
 
 3. Reading group: Metaprogramming section of Advanced R
 
@@ -38,4 +47,59 @@ Potential outline for the coming weeks. The next quokka meeting is on the 18th S
   - Read through 17.1 and do exercises.
   - Discuss answers and thoughts
   - Discuss future paths (how much and how long to read?)
+
+```{r}
+
+i <- function(x) deparse(quote(x))
+g <- function(x) deparse(substitute(x))
+
+i(1:10)
+g(1:10)
+
+quote(1+1)
+substitute(1+1)
+```
+
+```{r}
+quote(1+1)
+substitute(1+1)
+x <- 10
+substitute(x)
+substitute(1+1)
+
+s <- function(x) substitute(x)
+q <- function(x) quote(x)
+
+x
+s(y)
+
+q(y)
+
+```
+
+- quote will not try and operate on what it is given
+- substitute will try and operate on what it is given (it will substitute in any promises (symbols it can resolve)), and you can specify which place it looks these up - default is the current env.
+
+```{r}
+h <- function(...) deparse(substitute(...))
+h_l <- function(...) deparse(substitute(list(...)))
+
+h(1:10, "a")
+h_l(1:10, "a")
+
+```
+
+```{r}
+D(quote(x^2), "x")
+```
+
+AS a user, there aren't really many times that you want to use `quote`. Roger made the point that there are two times.
+
+1. The `D` function for symbolic differentiation
+2. Passing expressions to `trace()`
+
+Thomas Lumley has an article about this IN 2001!
+
+https://www.r-project.org/doc/Rnews/Rnews_2001-3.pdf
+
 
