@@ -1,0 +1,213 @@
+---
+title: "session-5-chapter-notes"
+output: html_document
+---
+
+## Chapter 17-18
+
+R allows you to not only access the values of a functions arguments, but the code that was used to compute them. This means that you can evaluate code in non-standard ways, generally speaking meaning that the code used to compute values, or some sort of different context can be used to help evaluate some code.
+
+This gives rise to some really useful features, helping you reduce the amount of typing.
+
+Code is structured as a tree (an Abstract Syntax Tree [AST]), with branches and leaves. The branches are the calls, and the leaves are names and constants.
+
+These trees are generally created from a string, by parsing the code.
+
+The opposite operation from parsing the code is deparsing it.
+
+It is also possible to modify the tree by hand, and insert any R object - which to me seems to indicate that you can override usual lookup rules by inserting certain things into certain parts of the branches of the trees.
+
+
+### Chapter 18.1 : Structure of expressions
+
+**operations and results**
+
+You can capture code used using `quote`
+
+```{r}
+z <- quote(y <- x * 10)
+z
+```
+
+Which is what is called an *epxression* - an action that can be performed by R.
+
+This is different to a string
+```{r}
+st <- "y <- x * 10"
+```
+
+```{r}
+str(z)
+str(st)
+```
+
+You can represent these expresisons (or ASTs) as a hierarchical tree with `pryr`
+
+```{r}
+pryr::ast(y <- x * 10)
+```
+
+All possbile expressions are comparised of four pieces:
+
+1. constants ("a", 10, NULL) - length one atomic vectors. Quoting doens't change these.
+2. names (or symbols). These represent the name of an object rather than its value.
+3. calls - the act of calling a function. Can contains constants, names, other calls
+4. pairlists. legacy. Sorta like the named arguments of a function, behaves like a call - is recursive and ca contain constants, names and calls.
+
+`st1` doesn't follow naming conventions when describing objects.
+
+# 18.1.1 Exercises
+
+## Q1
+
+> There’s no existing base function that checks if an element is a valid component of an expression (i.e., it’s a constant, name, call, or pairlist). Implement one by guessing the names of the “is” functions for calls, names, and pairlists.
+
+```{r}
+# is.function(mean)
+
+is_constant <- function(x) is.atomic(x)
+
+is_name <- function(x) is.name(x)
+
+is_call <- function(x) is.function(x)
+
+is_pairlist
+
+```
+
+
+## Q2 
+
+> pryr::ast() uses non-standard evaluation. What’s its escape hatch to standard evaluation?
+
+`call_tree`?
+
+## Q3
+
+> What does the call tree of an if statement with multiple else conditions look like?
+
+```{r}
+pryr::ast(
+  if(x == 1) "bleep" else if (x == 2) "bloop" else if (x == 3) "bleeeeeeeep"
+)
+```
+
+
+## Q4
+
+> Compare ast(x + y %+% z) to ast(x ^ y %+% z). What do they tell you about the precedence of custom infix functions?
+
+```{r}
+pryr::ast(x + y %+% z)
+
+pryr:::ast(x ^ y %+% z)
+```
+
+```{r}
+letters[1:10] %+% chr(1:10)
+```
+
+
+## Q5
+
+> Why can’t an expression contain an atomic vector of length greater than one? Which one of the six types of atomic vector can’t appear in an expression? Why?
+
+raw?
+
+# 18.2 - Names / symbols
+
+`as.name` converts string to name, otherwise use `quote`.
+
+invalid names are surrounded by backticks
+
+- Empty names? I don't get why?
+
+"only useful to programmatically create a function with missing args"
+
+# 18.2.1 Exercises
+
+## Q1 
+
+You can use formals() to both get and set the arguments of a function. Use formals() to modify the following function so that the default value of x is missing and y is 10.
+
+```{r}
+g <- function(x = 20, y) {
+  x + y
+}
+
+formals(g)
+
+formals(g)$x <- quote(expr=)
+
+g
+
+```
+
+## Q2
+
+Write an equivalent to get() using as.name() and eval(). Write an equivalent to assign() using as.name(), substitute(), and eval(). (Don’t worry about the multiple ways of choosing an environment; assume that the user supplies it explicitly.)
+
+# 18.3 Calls
+
+## 18.3 exercises
+
+### Q1
+
+The following two calls look the same, but are actually different:
+
+```{r}
+
+(a <- call("mean", 1:10))
+
+(b <- call("mean", quote(1:10)))
+
+identical(a, b)
+
+```
+
+What’s the difference? Which one should you prefer?
+
+2. Implement a pure R version of do.call().
+
+3. Concatenating a call and an expression with c() creates a list. Implement concat() so that the following code works to combine a call and an additional argument.
+
+```{r}
+
+concat(quote(f), a = 1, b = quote(mean(a)))
+#> f(a = 1, b = mean(a))
+```
+
+
+4. Since list()s don’t belong in expressions, we could create a more convenient call constructor that automatically combines lists into the arguments. Implement make_call() so that the following code works.
+
+```{r}
+
+make_call(quote(mean), list(quote(x), na.rm = TRUE))
+
+make_call(quote(mean), quote(x), na.rm = TRUE)
+
+```
+
+5. How does mode<- work? How does it use call()?
+
+6. Read the source for pryr::standardise_call(). How does it work? Why is is.primitive() needed?
+
+7. standardise_call() doesn’t work so well for the following calls. Why?
+
+```{r}
+
+standardise_call(quote(mean(1:10, na.rm = TRUE)))
+
+standardise_call(quote(mean(n = T, 1:10)))
+
+standardise_call(quote(mean(x = 1:10, , TRUE)))
+```
+
+8. Read the documentation for pryr::modify_call(). How do you think it works? Read the source code.
+
+9. Use ast() and experimentation to figure out the three arguments in an if() call. Which components are required? What are the arguments to the for() and while() calls?
+
+# 18.4 Pairlists
+
+Pairlists are lists everywhere except funciton args.
+

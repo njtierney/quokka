@@ -7,6 +7,24 @@ output: html_document
 
 ## 1. Rstats News: "Any news in R that's interesting?"
 
+- [Rweekly](https://rweekly.org/) - a great resource
+- [lime: explaining black-box model predictions](http://www.data-imaginist.com/2017/Announcing-lime/)
+- [rice, command line R interface](https://github.com/randy3k/rice)
+- [linemap - ridge/joy plots on maps](https://github.com/rCarto/linemap)
+- [RStudio webinars](https://www.rstudio.com/resources/webinars/) - full of nuggets of wisdom
+- [Yihui's blog](https://yihui.name/en/) - not on r-bloggers anymore, but he's been blogging a lot lately, probably because [blogdown]() is so easy to use.
+- [rbind](https://github.com/rbind)
+
+- [rivis](https://github.com/ropenscilabs/rivis)
+
+- RStudio community discussion on ggvis
+
+- [RStudio addin for editing dataframes](https://github.com/cardiomoon/editData) - not sure if terrifying.
+
+- Quote (ripped from RWeekly)
+
+> Next time someone says "excel is the worst" be more helpful and say this ... #rstats #EARLConf2017 pic.twitter.com/2PHKRPteAg ( twitter.com ): — Alice Data (@alice_data) September 14, 2017 ( twitter.com ) 
+
 - Cool blog posts
 - R core changes?
 - Any R packages we've released?
